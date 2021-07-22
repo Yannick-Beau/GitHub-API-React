@@ -1,8 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+
 import { Message, Icon } from 'semantic-ui-react';
 
-const MessageUI = () => (
+const MessageLoading = () => (
   <Message icon>
     <Icon name="circle notched" loading />
     <Message.Content>
@@ -12,7 +12,4 @@ const MessageUI = () => (
   </Message>
 );
 
-// Message.propTypes = {
-// };
-
-export default MessageUI;
+export default MessageLoading;
