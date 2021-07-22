@@ -1,5 +1,8 @@
 // == Import npm
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Composant axios : permet de faire des requets vers une API
+import Axios from 'axios';
 
 // == Import
 import SearchBar from 'src/components/SearchBar';
@@ -13,15 +16,61 @@ import reposData from 'src/data/repos';
 
 // == Composant
 const App = () => {
-  const [loadingSearch, setLoadingSearch] = useState(false);
+  const [loadingSearch, setLoadingSearch] = useState(true);
   const [inputSearch, setInputSearch] = useState('');
+  const [error, setError] = useState(null);
+  const [repos, setRepos] = useState({});
+
+  const getReposByInputSearch = () => {
+    setLoadingSearch(false);
+    Axios.get(`https://api.github.com/search/repositories?q=${inputSearch}`)
+      .then((response) => {
+        // handle success
+        console.log(response.data);
+        setRepos(response.data);
+      })
+      .catch((errorRequest) => {
+        // handle error
+        setError(errorRequest);
+      })
+      .then(() => {
+        setLoadingSearch(false);
+      });
+  };
+
+  const getRepos = () => {
+    setLoadingSearch(true);
+    Axios.get('https://api.github.com/search/repositories?q=java')
+      .then((response) => {
+        // handle success
+        console.log(response.data);
+        setRepos(response.data);
+      })
+      .catch((errorRequest) => {
+        // handle error
+        setError(errorRequest);
+      })
+      .then(() => {
+        setLoadingSearch(false);
+      });
+  };
+
+  useEffect(() => {
+    setRepos(reposData);
+    console.log('hello !');
+    setLoadingSearch(false);
+  }, []);
 
   return (
     <div className="app">
-      <SearchBar />
+      <SearchBar
+        inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
+        getReposByInputSearch={getReposByInputSearch}
+      />
       {loadingSearch && <MessageLoading />}
-      {!loadingSearch && <MessageResults reposData={reposData} />}
-      <ReposResults reposData={reposData} />
+      {!loadingSearch && <MessageResults reposData={repos} />}
+      {!loadingSearch && <ReposResults reposData={repos} />}
     </div>
   );
 };

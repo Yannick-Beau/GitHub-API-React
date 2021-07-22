@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';
 
 const MessageResults = ({ reposData }) => (
@@ -9,5 +10,11 @@ const MessageResults = ({ reposData }) => (
     </p>
   </Message>
 );
+
+MessageResults.propTypes = {
+  reposData: PropTypes.shape({
+    total_count: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default MessageResults;
