@@ -4,11 +4,15 @@ import React, { useState, useEffect } from 'react';
 // Composant axios : permet de faire des requets vers une API
 import Axios from 'axios';
 
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 // == Import
+import NavBar from 'src/components/NavBar';
 import SearchBar from 'src/components/SearchBar';
 import MessageLoading from 'src/components/MessageLoading';
 import MessageResults from 'src/components/MessageResults';
 import ReposResults from 'src/components/ReposResults';
+import NotFound from 'src/components/NotFound';
 import './styles.scss';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -64,14 +68,27 @@ const App = () => {
   return (
     <div className="app">
       <img src={gitHubLogo} alt="gitHub logo" />
-      <SearchBar
-        inputSearch={inputSearch}
-        setInputSearch={setInputSearch}
-        getReposByInputSearch={getReposByInputSearch}
-      />
-      {loadingSearch && <MessageLoading />}
-      {!loadingSearch && <MessageResults reposData={repos} />}
-      {!loadingSearch && <ReposResults reposData={repos} />}
+      <NavBar />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <SearchBar
+              inputSearch={inputSearch}
+              setInputSearch={setInputSearch}
+              getReposByInputSearch={getReposByInputSearch}
+            />
+            {loadingSearch && <MessageLoading />}
+            {!loadingSearch && <MessageResults reposData={repos} />}
+            {!loadingSearch && <ReposResults reposData={repos} />}
+          </Route>
+          <Route path="/faq" exact>
+            <h2>ici bientot la FAQ</h2>
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 };
