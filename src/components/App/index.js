@@ -13,6 +13,7 @@ import './styles.scss';
 import 'semantic-ui-css/semantic.min.css';
 
 import reposData from 'src/data/repos';
+import gitHubLogo from 'src/assets/images/logo-github.png';
 
 // == Composant
 const App = () => {
@@ -38,31 +39,31 @@ const App = () => {
       });
   };
 
-  const getRepos = () => {
-    setLoadingSearch(true);
-    Axios.get('https://api.github.com/search/repositories?q=java')
-      .then((response) => {
-        // handle success
-        console.log(response.data);
-        setRepos(response.data);
-      })
-      .catch((errorRequest) => {
-        // handle error
-        setError(errorRequest);
-      })
-      .then(() => {
-        setLoadingSearch(false);
-      });
-  };
+  // const getRepos = () => {
+  //   setLoadingSearch(false);
+  //   Axios.get('https://api.github.com/search/repositories?q=java')
+  //     .then((response) => {
+  //       // handle success
+  //       console.log(response.data);
+  //       setRepos(response.data);
+  //     })
+  //     .catch((errorRequest) => {
+  //       // handle error
+  //       setError(errorRequest);
+  //     })
+  //     .then(() => {
+  //       setLoadingSearch(false);
+  //     });
+  // };
 
   useEffect(() => {
     setRepos(reposData);
-    console.log('hello !');
     setLoadingSearch(false);
   }, []);
 
   return (
     <div className="app">
+      <img src={gitHubLogo} alt="gitHub logo" />
       <SearchBar
         inputSearch={inputSearch}
         setInputSearch={setInputSearch}
