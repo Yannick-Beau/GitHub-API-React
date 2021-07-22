@@ -1,37 +1,35 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
 
-const ReposResults = () => (
+const ReposResults = ({ reposData }) => (
   <div className="reposList">
-    <Card
-      image="/images/avatar/large/elliot.jpg"
-      header="Elliot Baker"
-      meta="Friend"
-      description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-    />
-    <Card
-      image="/images/avatar/large/elliot.jpg"
-      header="Elliot Baker"
-      meta="Friend"
-      description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-    />
-    <Card
-      image="/images/avatar/large/elliot.jpg"
-      header="Elliot Baker"
-      meta="Friend"
-      description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-    />
-    <Card
-      image="/images/avatar/large/elliot.jpg"
-      header="Elliot Baker"
-      meta="Friend"
-      description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-    />
+    {reposData.items.map((repos) => (
+      <Card
+        key={repos.id}
+        image={repos.owner.avatar_url}
+        header={repos.name}
+        meta={repos.owner.login}
+        description={repos.description}
+      />
+    ))}
   </div>
 );
 
-// ReposResults.propTypes = {
-// };
+ReposResults.propTypes = {
+  reposData: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        owner: PropTypes.shape({
+          login: PropTypes.string.isRequired,
+          avatar_url: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
+};
 
 export default ReposResults;

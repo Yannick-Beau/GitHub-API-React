@@ -6,7 +6,7 @@ const SearchBar = () => (
   <Input
     icon="search"
     iconPosition="left"
-    placeholder="Search..."
+    placeholder="Rechercher..."
   />
 );
 

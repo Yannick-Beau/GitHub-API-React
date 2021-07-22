@@ -8,12 +8,14 @@ import ReposResults from 'src/components/ReposResults';
 import './styles.scss';
 import 'semantic-ui-css/semantic.min.css';
 
+import reposData from 'src/data/repos';
+
 // == Composant
 const App = () => (
   <div className="app">
     <SearchBar />
     <MessageUI />
-    <ReposResults />
+    <ReposResults reposData={reposData} />
   </div>
 );
 
