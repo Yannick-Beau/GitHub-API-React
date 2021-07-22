@@ -3,14 +3,17 @@ import React from 'react';
 
 // == Import
 import SearchBar from 'src/components/SearchBar';
-import Message from 'src/components/Message';
+import MessageUI from 'src/components/Message';
 import ReposResults from 'src/components/ReposResults';
 import './styles.scss';
+import 'semantic-ui-css/semantic.min.css';
 
 // == Composant
 const App = () => (
   <div className="app">
-    <h1>Composant : App</h1>
+    <SearchBar />
+    <MessageUI />
+    <ReposResults />
   </div>
 );
 
