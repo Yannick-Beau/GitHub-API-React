@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
 
 const ReposResults = ({ reposData }) => (
-  <Card.Group centered>
+  <Card.Group itemsPerRow={3}>
     {reposData.items.map((repos) => (
       <Card
         key={repos.id}

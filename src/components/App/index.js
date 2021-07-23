@@ -27,12 +27,13 @@ const App = () => {
   const [repos, setRepos] = useState({});
 
   const getReposByInputSearch = () => {
-    setLoadingSearch(false);
+    setLoadingSearch(true);
     Axios.get(`https://api.github.com/search/repositories?q=${inputSearch}`)
       .then((response) => {
         // handle success
         console.log(response.data);
         setRepos(response.data);
+        setInputSearch('');
       })
       .catch((errorRequest) => {
         // handle error

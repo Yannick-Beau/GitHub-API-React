@@ -5,13 +5,13 @@ body {
   font-family: sans-serif;
 }
 
-html {
+// on augmente la spécificité de notre sélecteur, comme ça ça sera prioritaire par
+// rapport à la couleur de fond de body définie par semantic ui css
+html body {
   background-color: gray;
 }
 
-#root {
-  background-color: gray;
-}
+
 
 /* 
   // or you can import your own font
