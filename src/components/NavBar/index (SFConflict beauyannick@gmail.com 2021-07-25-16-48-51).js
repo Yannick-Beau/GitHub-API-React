@@ -7,26 +7,10 @@ import { NavLink, BrowserRouter } from 'react-router-dom';
 const NavBar = ({ setUrl }) => (
   <Menu>
     <BrowserRouter>
-      <NavLink
-        to="/"
-        className="item"
-        activeClassName="active item"
-        exact
-        onClick={() => {
-          setUrl('/');
-        }}
-      >
+      <NavLink to="/" className="item" activeClassName="active item">
         Recherche
       </NavLink>
-      <NavLink
-        to="/faq"
-        className="item"
-        activeClassName="active item"
-        exact
-        onClick={() => {
-          setUrl('/faq');
-        }}
-      >
+      <NavLink to="/faq" className="item" activeClassName="active item">
         FAQ
       </NavLink>
     </BrowserRouter>

@@ -12,8 +12,6 @@ import SearchBar from 'src/components/SearchBar';
 import MessageLoading from 'src/components/MessageLoading';
 import MessageResults from 'src/components/MessageResults';
 import ReposResults from 'src/components/ReposResults';
-import Faq from 'src/components/Faq';
-import Pagination from 'src/components/Pagination';
 import NotFound from 'src/components/NotFound';
 import './styles.scss';
 import 'semantic-ui-css/semantic.min.css';
@@ -28,35 +26,15 @@ const App = () => {
   const [error, setError] = useState(null);
   const [repos, setRepos] = useState({});
   const [url, setUrl] = useState('');
-  const [page, setPage] = useState(1);
 
   const getReposByInputSearch = () => {
     setLoadingSearch(true);
-    Axios.get(`https://api.github.com/search/repositories?q=${inputSearch}&sort=stars&order=desc&page=1&per_page=9 `) // https://api.github.com/search/repositories?q=${inputSearch}
+    Axios.get(`https://api.github.com/search/repositories?q=${inputSearch}`)
       .then((response) => {
         // handle success
         console.log(response.data);
         setRepos(response.data);
-      })
-      .catch((errorRequest) => {
-        // handle error
-        setError(errorRequest);
-      })
-      .then(() => {
-        setLoadingSearch(false);
-      });
-  };
-
-  const getReposByPagination = (pagination) => {
-    setLoadingSearch(true);
-    console.log(pagination);
-    const newTabRepos = { ...repos };
-    Axios.get(`https://api.github.com/search/repositories?q=${inputSearch}&sort=stars&order=desc&page=${pagination}&per_page=9 `) // https://api.github.com/search/repositories?q=${inputSearch}
-      .then((response) => {
-        // handle success
-        console.log(response.data);
-        newTabRepos.items.push(...response.data.items);
-        setRepos(newTabRepos);
+        setInputSearch('');
       })
       .catch((errorRequest) => {
         // handle error
@@ -92,8 +70,8 @@ const App = () => {
   return (
     <div className="app">
       <img src={gitHubLogo} alt="gitHub logo" />
+      <NavBar setUrl={setUrl} />
       <BrowserRouter>
-        <NavBar setUrl={setUrl} />
         <Switch>
           <Route path="/" exact>
             <SearchBar
@@ -104,17 +82,9 @@ const App = () => {
             {loadingSearch && <MessageLoading />}
             {!loadingSearch && <MessageResults reposData={repos} />}
             {!loadingSearch && <ReposResults reposData={repos} />}
-            {!loadingSearch
-            && (
-            <Pagination
-              page={page}
-              setPage={setPage}
-              getReposByPagination={getReposByPagination}
-            />
-            )}
           </Route>
           <Route path="/faq" exact>
-            <Faq />
+            <h2>ici bientot la FAQ</h2>
           </Route>
           <Route>
             <NotFound />
